@@ -8,6 +8,8 @@ import { TailwindProvider } from 'tailwindcss-react-native';
 import HomeScreen from './screens/HomeScreen';
 import { store } from './store';
 import MapScreen from './screens/MapScreen';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { GOOGLE_MAPS_APIKEY } from "@env";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
