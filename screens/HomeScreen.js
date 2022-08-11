@@ -1,5 +1,6 @@
 import { View, Text, SafeAreaView, Image } from 'react-native'
 import React from 'react'
+import NavOptions from '../components/NavOptions'
 
 const HomeScreen = () => {
     return (
@@ -15,8 +16,9 @@ const HomeScreen = () => {
                         uri: "https://links.papareact.com/gzs"
                     }}
                 />
+
+                <NavOptions />
             </View>
-            {/* <Text>Ọubér [ UBER ] Clone</Text> */}
         </SafeAreaView>
     )
 }
