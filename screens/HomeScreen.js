@@ -3,8 +3,12 @@ import React from 'react';
 import NavOptions from '../components/NavOptions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_MAPS_APIKEY } from "@env";
+import { useDispatch } from "react-redux";
+import { setDestination, setOrigin } from "../slices/navSlice";
 
 const HomeScreen = () => {
+    const dispatch = useDispatch();
+
     return (
         <SafeAreaView className="h-full bg-white p-5">
             <View className="px-5">
@@ -30,8 +34,12 @@ const HomeScreen = () => {
                         },
                     }}
                     onPress={(data, details = nul) => {
-                        console.log(data);
-                        console.log(details);
+                        dispatch(setOrigin({
+                            location: details.geometry.location,
+                            description: data.description,
+                        }));
+
+                        dispatch(setDestination(null));
                     }}
                     fetchDetails={true}
                     enablePoweredByContainer={false}
