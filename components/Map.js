@@ -19,6 +19,20 @@ const Map = () => {
         });
     }, [origin, destination]);
 
+
+    {origin ? (
+        console.log(`Origin: ${origin.location} \n ${origin.description}\n`)
+    ) : (
+        console.log("🤐🤐")
+    )};
+
+    {destination ? (
+        console.log(`Destination: ${destination.location} \n ${destination.description}\n`)
+    ) : (
+        console.log("🙃🙃")
+    )};
+
+
     return (
         <MapView
             ref={mapRef}

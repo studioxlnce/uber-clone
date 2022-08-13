@@ -10,7 +10,7 @@ const MapScreen = () => {
     const Stack = createNativeStackNavigator();
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <View>
             <View className=" max-h-[50%] flex-shrink">
                 <Map />
             </View>
@@ -32,7 +32,7 @@ const MapScreen = () => {
                     />
                 </Stack.Navigator>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 
