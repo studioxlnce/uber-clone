@@ -2,6 +2,8 @@ import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Image } from 'rea
 import React, { useState } from 'react';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectTravelTimeInformation } from '../slices/navSlice';
 
 const data = [
     {
@@ -22,11 +24,14 @@ const data = [
         multiplier: 1.75,
         image: "https://links.papareact.com/7pf",
     },
-]
+];
+
+const SURGE_CHARGE_PRICE = 1.5;
 
 const RideOptionsCard = () => {
     const navigation = useNavigation();
     const [selected, setSelected] = useState(null);
+    const travelTimeInformation = useSelector(selectTravelTimeInformation);
 
     return (
         <SafeAreaView className="bg-white flex-grow">
@@ -34,7 +39,9 @@ const RideOptionsCard = () => {
                 <TouchableOpacity onPress={() => { console.log("😡😡😡"); navigation.navigate("NavigateCard"); }} className="absolute p-3 rounded-full top-3 left-5 z-50" >
                     <Icon name="chevron-left" type="font-awesome" size={14} />
                 </TouchableOpacity>
-                <Text className="text-center text-xl py-5">Select a Ride</Text>
+                <Text className="text-center text-xl py-5">
+                    Select a Ride — {travelTimeInformation?.distance?.text}
+                </Text>
             </View>
             <FlatList
                 data={data}
@@ -64,14 +71,21 @@ const RideOptionsCard = () => {
                         />
                         <View className="-ml-6">
                             <Text className="text-xl font-semibold">{title}</Text>
-                            <Text>Travel time...</Text>
+                            <Text>{travelTimeInformation?.duration?.text}  Travel Time</Text>
                         </View>
-                        <Text className="text-xl">£99</Text>
+                        <Text className="text-xl">
+                            {new Intl.NumberFormat('en-gb', {
+                                style: 'currency',
+                                currency: 'GBP'
+                            }).format(
+                                (travelTimeInformation?.duration?.value * SURGE_CHARGE_PRICE * multiplier) / 100,
+                            )}
+                        </Text>
                     </TouchableOpacity>
                 )}
             />
 
-            <View>
+            <View className="mt-auto border-t border-gray-200">
                 <TouchableOpacity disabled={!selected} className="bg-black py-3 m-3" style={ !selected ? { backgroundColor: '#cacaca' } : null }>
                     <Text className="text-center text-white text-xl">Choose {selected?.title}</Text>
                 </TouchableOpacity>
